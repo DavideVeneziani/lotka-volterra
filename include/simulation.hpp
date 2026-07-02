@@ -19,7 +19,7 @@ public:
   const std::vector<State> &states() const;
   void evolve();
   void run(int steps);
-  void print(std::ostream& output, int precision = 6) const;
+  void print(std::ostream& output, int precision = 2) const;
 
 private:
   double x_absolute() const;
