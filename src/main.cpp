@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
   if (argc != 8) {
     std::cerr << argv[0]
-              << " needs eight entry arguments: a b c d x0 y0 steps\n";
+              << " needs seven entry arguments: a b c d x0 y0 steps\n";
   }
 
   try {
