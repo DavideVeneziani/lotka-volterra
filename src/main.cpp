@@ -29,9 +29,6 @@ int main(int argc, char *argv[]) {
     lv::Simulation simulation{a, b, c, d, x0, y0};
 
     simulation.run(steps);
-
-    const auto& states = simulation.states();
-
     simulation.print(std::cout, 2);
 
   } catch (const std::exception& error) {
