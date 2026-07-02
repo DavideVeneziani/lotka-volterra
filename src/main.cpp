@@ -31,10 +31,12 @@ int main(int argc, char* argv[]) {
   if (argc < 8) {
     std::cerr << argv[0]
               << " needs at least seven entry arguments: a b c d x0 y0 steps\n";
+    return 1;
   }
   if (argc > 10) {
     std::cerr << argv[0]
               << " handles nine arguments max: a b c d x0 y0 steps file_name data_precision\n";
+    return 1;
   }
 
   try {
@@ -51,12 +53,12 @@ int main(int argc, char* argv[]) {
     int precision = 2;
 
     if (argc == 9) {
-    std::string arg8{argv[8]}
+    std::string arg8{argv[8]};
 
     if (is_integer(arg8)) {
-     precision = std::stoi(arg8);
+      precision = std::stoi(arg8);
     } else {
-     output_file = arg8;
+      output_file = arg8;
       has_output_file = true;
     }
   }
@@ -67,7 +69,7 @@ int main(int argc, char* argv[]) {
 
       std::string arg9{argv[9]};
 
-      if (is_double(arg8)) {
+      if (is_double(output_file)) {
       std::cerr << "Error: output file name can't be a number\n";
       return 1;
       }
@@ -81,7 +83,7 @@ int main(int argc, char* argv[]) {
     } 
     
     if (a <= 0.0 || b <= 0.0 || c <= 0.0 || d <= 0.0 || x0 <= 0.0 ||
-        y0 <= 0.0 || steps < 0) {
+        y0 <= 0.0 || steps < 0 || precision <= 0) {
       std::cerr << "Error: all parameters must be positive, except steps which "
                    "must be non-negative\n";
       return 1;
@@ -90,7 +92,19 @@ int main(int argc, char* argv[]) {
     lv::Simulation simulation{a, b, c, d, x0, y0};
 
     simulation.run(steps);
+
+    if (has_output_file) {
+    std::ofstream file{output_file};
+
+    if (!file.is_open()) {
+      std::cerr << "Error: cannot open output file '" << output_file << "'\n";
+      return 1;
+    }
+
+    simulation.print(file, precision);
+  } else {
     simulation.print(std::cout, precision);
+  }
 
   } catch (const std::exception& error) {
     std::cerr << "Error: invalid input\n";

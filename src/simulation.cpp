@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <ostream>
 #include <iomanip>
+#include <fstream>
 
 namespace lv {
 
