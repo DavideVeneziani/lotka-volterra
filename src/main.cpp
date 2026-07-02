@@ -32,11 +32,7 @@ int main(int argc, char *argv[]) {
 
     const auto& states = simulation.states();
 
-    std::cout << "step, x, y, h\n";
-
-    for (int i = 0; i < static_cast<int>(states.size()); ++i) {
-      std::cout << i << ', ' << states[i].x << ', ' << states[i].y << ', ' << states[i].h << '\n';
-    }
+    simulation.print(std::cout, 2);
 
   } catch (const std::exception& error) {
     std::cerr << "Error: invalid input\n";

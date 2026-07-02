@@ -3,11 +3,12 @@
 #include <cassert>
 #include <cmath>
 #include <stdexcept>
+#include <ostream>
+#include <iomanip>
 
 namespace lv {
 
-Simulation::Simulation(double a, double b, double c, double d, double x0,
-                       double y0)
+Simulation::Simulation(double a, double b, double c, double d, double x0, double y0)
     : a_{a}, b_{b}, c_{c}, d_{d}, x_rel_{}, y_rel_{} {
   if (a <= 0.0 || b <= 0.0 || c <= 0.0 || d <= 0.0) {
     throw std::invalid_argument{"Parameters must be positive"};
@@ -52,6 +53,19 @@ void Simulation::run(int steps) {
     Simulation::evolve();
   }
 };
+
+void Simulation::print(std::ostream& output, int precision) const {
+  output << std::setw(8) << "step" << std::setw(18) << "x" << std::setw(18)
+         << "y" << std::setw(18) << "h" << '\n';
+  
+  output << std::fixed << std::setprecision(precision);
+
+  for (std::size_t i = 0; i < states_.size(); ++i) {
+    output << std::setw(8) << i << std::setw(18) << states_[i].x
+           << std::setw(18) << states_[i].y << std::setw(18) << states_[i].h
+           << '\n';
+  }
+}
 
 double Simulation::x_absolute() const {
   assert(c_ > 0.0);

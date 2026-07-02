@@ -2,6 +2,7 @@
 #define LV_SIMULATION_HPP
 
 #include <vector>
+#include <ostream>
 
 namespace lv {
 
@@ -18,6 +19,7 @@ public:
   const std::vector<State> &states() const;
   void evolve();
   void run(int steps);
+  void print(std::ostream& output, int precision = 6) const;
 
 private:
   double x_absolute() const;
