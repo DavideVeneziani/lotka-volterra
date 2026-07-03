@@ -546,6 +546,7 @@ src/parsing.o: src/parsing.cpp.o
 # target to build an object file
 src/parsing.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/parsing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o
 .PHONY : src/parsing.cpp.o
 
 src/parsing.i: src/parsing.cpp.i
@@ -554,6 +555,7 @@ src/parsing.i: src/parsing.cpp.i
 # target to preprocess a source file
 src/parsing.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/parsing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.i
 .PHONY : src/parsing.cpp.i
 
 src/parsing.s: src/parsing.cpp.s
@@ -562,6 +564,7 @@ src/parsing.s: src/parsing.cpp.s
 # target to generate assembly for a file
 src/parsing.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/parsing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.s
 .PHONY : src/parsing.cpp.s
 
 src/simulation.o: src/simulation.cpp.o
@@ -590,6 +593,30 @@ src/simulation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/simulation.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.s
 .PHONY : src/simulation.cpp.s
+
+test/parsing.test.o: test/parsing.test.cpp.o
+.PHONY : test/parsing.test.o
+
+# target to build an object file
+test/parsing.test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o
+.PHONY : test/parsing.test.cpp.o
+
+test/parsing.test.i: test/parsing.test.cpp.i
+.PHONY : test/parsing.test.i
+
+# target to preprocess a source file
+test/parsing.test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.i
+.PHONY : test/parsing.test.cpp.i
+
+test/parsing.test.s: test/parsing.test.cpp.s
+.PHONY : test/parsing.test.s
+
+# target to generate assembly for a file
+test/parsing.test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra_test.dir/build.make CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.s
+.PHONY : test/parsing.test.cpp.s
 
 test/simulation.test.o: test/simulation.test.cpp.o
 .PHONY : test/simulation.test.o
@@ -663,6 +690,9 @@ help:
 	@echo "... src/simulation.o"
 	@echo "... src/simulation.i"
 	@echo "... src/simulation.s"
+	@echo "... test/parsing.test.o"
+	@echo "... test/parsing.test.i"
+	@echo "... test/parsing.test.s"
 	@echo "... test/simulation.test.o"
 	@echo "... test/simulation.test.i"
 	@echo "... test/simulation.test.s"

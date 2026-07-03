@@ -18,8 +18,8 @@ int main(int argc, char *argv[]) {
     if (options.has_output_file) {
       std::ofstream file(options.output_file);
       if (!file.is_open()) {
-        std::cerr << "Error: cannot open output file '"
-                  << options.output_file << "'\n";
+        std::cerr << "Error: cannot open output file '" << options.output_file
+                  << "'\n";
         return 1;
       }
       simulation.print(file, options.precision);

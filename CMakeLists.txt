@@ -56,7 +56,9 @@ if (BUILD_TESTING)
   # aggiungi l'eseguibile progetto.t
   add_executable(lotka_volterra_test
     test/simulation.test.cpp
+    test/parsing.test.cpp
     src/simulation.cpp
+    src/parsing.cpp
   )
   target_include_directories(lotka_volterra_test PRIVATE include)
 

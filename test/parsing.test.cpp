@@ -8,11 +8,10 @@
 
 namespace {
 
-lv::Program_options parse(std::vector<std::string>& arguments)
-{
-  std::vector<char*> argv;
+lv::Program_options parse(std::vector<std::string> &arguments) {
+  std::vector<char *> argv;
 
-  for (std::string& argument : arguments) {
+  for (std::string &argument : arguments) {
     argv.push_back(argument.data());
   }
 
@@ -21,10 +20,9 @@ lv::Program_options parse(std::vector<std::string>& arguments)
 
 } // namespace
 
-TEST_CASE("Parse required command line arguments")
-{
-  std::vector<std::string> arguments = {
-      "lotka_volterra", "1.0", "0.1", "1.5", "0.075", "10.0", "5.0", "100"};
+TEST_CASE("Parse required command line arguments") {
+  std::vector<std::string> arguments = {"lotka_volterra", "1.0",  "0.1", "1.5",
+                                        "0.075",          "10.0", "5.0", "100"};
 
   lv::Program_options options = parse(arguments);
 
@@ -39,12 +37,11 @@ TEST_CASE("Parse required command line arguments")
   CHECK(options.precision == 2);
 }
 
-TEST_CASE("Parsing fails if one required argument is not numeric")
-{
+TEST_CASE("Parsing fails if one required argument is not numeric") {
   std::vector<std::string> valid_arguments = {
       "lotka_volterra", "1.0", "0.1", "1.5", "0.075", "10.0", "5.0", "100"};
 
-  for (int i = 1; i <= 7; ++i) {
+  for (std::size_t i = 1; i <= 7; ++i) {
     std::vector<std::string> arguments = valid_arguments;
     arguments[i] = "abc";
 

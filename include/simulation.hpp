@@ -1,8 +1,8 @@
 #ifndef LV_SIMULATION_HPP
 #define LV_SIMULATION_HPP
 
-#include <vector>
 #include <ostream>
+#include <vector>
 
 namespace lv {
 
@@ -19,7 +19,7 @@ public:
   const std::vector<State> &states() const;
   void evolve();
   void run(int steps);
-  void print(std::ostream& output, int precision = 2) const;
+  void print(std::ostream &output, int precision = 2) const;
 
 private:
   double x_absolute() const;
@@ -27,7 +27,7 @@ private:
   double hamiltonian() const;
   void save_state();
 
-  static constexpr double dt_{0.001};  
+  static constexpr double dt_{0.001};
 
   double a_;
   double b_;

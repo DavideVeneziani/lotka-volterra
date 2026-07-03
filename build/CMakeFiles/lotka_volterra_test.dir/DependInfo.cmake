@@ -8,7 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/davide/Documents/ProjectsVSC/lotka_volterra/src/parsing.cpp" "CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o" "gcc" "CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o.d"
   "/home/davide/Documents/ProjectsVSC/lotka_volterra/src/simulation.cpp" "CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o" "gcc" "CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o.d"
+  "/home/davide/Documents/ProjectsVSC/lotka_volterra/test/parsing.test.cpp" "CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o" "gcc" "CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o.d"
   "/home/davide/Documents/ProjectsVSC/lotka_volterra/test/simulation.test.cpp" "CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.o" "gcc" "CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.o.d"
   )
 

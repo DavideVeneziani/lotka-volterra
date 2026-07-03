@@ -5,8 +5,7 @@
 
 #include <stdexcept>
 
-TEST_CASE("Simulation saves the initial state")
-{
+TEST_CASE("Simulation saves the initial state") {
   lv::Simulation simulation(1.0, 2.0, 3.0, 4.0, 1.0, 1.0);
 
   REQUIRE(simulation.states().size() == 1);
@@ -17,8 +16,7 @@ TEST_CASE("Simulation saves the initial state")
   CHECK(state.y == doctest::Approx(1.0));
 }
 
-TEST_CASE("Simulation rejects non-positive parameters")
-{
+TEST_CASE("Simulation rejects non-positive parameters") {
   CHECK_THROWS_AS(lv::Simulation(0.0, 2.0, 3.0, 4.0, 1.0, 1.0),
                   std::invalid_argument);
 
@@ -32,8 +30,7 @@ TEST_CASE("Simulation rejects non-positive parameters")
                   std::invalid_argument);
 }
 
-TEST_CASE("Simulation prints results")
-{
+TEST_CASE("Simulation prints results") {
   lv::Simulation simulation{1.0, 0.1, 1.5, 0.075, 10.0, 5.0};
 
   simulation.run(3);
@@ -44,8 +41,7 @@ TEST_CASE("Simulation prints results")
   CHECK(!os.str().empty());
 }
 
-TEST_CASE("Simulation print uses selected precision")
-{
+TEST_CASE("Simulation print uses selected precision") {
   lv::Simulation simulation{1.0, 0.1, 1.5, 0.075, 10.0, 5.0};
 
   simulation.run(1);

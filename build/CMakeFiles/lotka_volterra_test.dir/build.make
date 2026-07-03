@@ -83,10 +83,24 @@ CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/davide/Documents/ProjectsVSC/lotka_volterra/test/simulation.test.cpp -o CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.s
 
+CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o: CMakeFiles/lotka_volterra_test.dir/flags.make
+CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o: /home/davide/Documents/ProjectsVSC/lotka_volterra/test/parsing.test.cpp
+CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o: CMakeFiles/lotka_volterra_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/davide/Documents/ProjectsVSC/lotka_volterra/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o -MF CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o.d -o CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o -c /home/davide/Documents/ProjectsVSC/lotka_volterra/test/parsing.test.cpp
+
+CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/davide/Documents/ProjectsVSC/lotka_volterra/test/parsing.test.cpp > CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.i
+
+CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/davide/Documents/ProjectsVSC/lotka_volterra/test/parsing.test.cpp -o CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.s
+
 CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o: CMakeFiles/lotka_volterra_test.dir/flags.make
 CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o: /home/davide/Documents/ProjectsVSC/lotka_volterra/src/simulation.cpp
 CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o: CMakeFiles/lotka_volterra_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/davide/Documents/ProjectsVSC/lotka_volterra/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/davide/Documents/ProjectsVSC/lotka_volterra/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o -MF CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o.d -o CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o -c /home/davide/Documents/ProjectsVSC/lotka_volterra/src/simulation.cpp
 
 CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.i: cmake_force
@@ -97,22 +111,40 @@ CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/davide/Documents/ProjectsVSC/lotka_volterra/src/simulation.cpp -o CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.s
 
+CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o: CMakeFiles/lotka_volterra_test.dir/flags.make
+CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o: /home/davide/Documents/ProjectsVSC/lotka_volterra/src/parsing.cpp
+CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o: CMakeFiles/lotka_volterra_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/davide/Documents/ProjectsVSC/lotka_volterra/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o -MF CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o.d -o CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o -c /home/davide/Documents/ProjectsVSC/lotka_volterra/src/parsing.cpp
+
+CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/davide/Documents/ProjectsVSC/lotka_volterra/src/parsing.cpp > CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.i
+
+CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/davide/Documents/ProjectsVSC/lotka_volterra/src/parsing.cpp -o CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.s
+
 # Object files for target lotka_volterra_test
 lotka_volterra_test_OBJECTS = \
 "CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.o" \
-"CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o"
+"CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o" \
+"CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o" \
+"CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o"
 
 # External object files for target lotka_volterra_test
 lotka_volterra_test_EXTERNAL_OBJECTS =
 
 lotka_volterra_test: CMakeFiles/lotka_volterra_test.dir/test/simulation.test.cpp.o
+lotka_volterra_test: CMakeFiles/lotka_volterra_test.dir/test/parsing.test.cpp.o
 lotka_volterra_test: CMakeFiles/lotka_volterra_test.dir/src/simulation.cpp.o
+lotka_volterra_test: CMakeFiles/lotka_volterra_test.dir/src/parsing.cpp.o
 lotka_volterra_test: CMakeFiles/lotka_volterra_test.dir/build.make
 lotka_volterra_test: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.1
 lotka_volterra_test: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.1
 lotka_volterra_test: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.1
 lotka_volterra_test: CMakeFiles/lotka_volterra_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/davide/Documents/ProjectsVSC/lotka_volterra/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable lotka_volterra_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/davide/Documents/ProjectsVSC/lotka_volterra/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable lotka_volterra_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lotka_volterra_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
