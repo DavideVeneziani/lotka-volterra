@@ -75,7 +75,6 @@ Program_options parse_arguments(int argc, char *argv[]) {
     std::string arg8{argv[8]};
     std::string arg9{argv[9]};
 
-    
     if (is_double(arg8)) {
       throw std::invalid_argument{"Output file name cannot be a number"};
     }
@@ -94,7 +93,7 @@ Program_options parse_arguments(int argc, char *argv[]) {
   }
 
   if (options.opt_steps < 0) {
-  throw std::invalid_argument{"Steps must be non-negative"};
+    throw std::invalid_argument{"Steps must be non-negative"};
   }
 
   return options;

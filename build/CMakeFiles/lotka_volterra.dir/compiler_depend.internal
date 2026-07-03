@@ -3,6 +3,7 @@
 
 CMakeFiles/lotka_volterra.dir/src/main.cpp.o
  /home/davide/Documents/ProjectsVSC/lotka_volterra/src/main.cpp
+ /home/davide/Documents/ProjectsVSC/lotka_volterra/include/parsing.hpp
  /home/davide/Documents/ProjectsVSC/lotka_volterra/include/simulation.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h

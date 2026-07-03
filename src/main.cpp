@@ -1,114 +1,34 @@
+#include "parsing.hpp"
 #include "simulation.hpp"
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
+#include <exception>
 #include <fstream>
+#include <iostream>
 
-bool is_integer(const std::string& text)
-{
-  try {
-    std::size_t index = 0;
-    std::stoi(text, &index);
-    return index == text.size();
-  } catch (const std::exception&) {
-    return false;
-  }
-}
-
-bool is_double(const std::string& text)
-{
-  try {
-    std::size_t index = 0;
-    std::stod(text, &index);
-    return index == text.size();
-  } catch (const std::exception&) {
-    return false;
-  }
-}
-
-int main(int argc, char* argv[]) {
-  if (argc < 8) {
-    std::cerr << argv[0]
-              << " needs at least seven entry arguments: a b c d x0 y0 steps\n";
-    return 1;
-  }
-  if (argc > 10) {
-    std::cerr << argv[0]
-              << " handles nine arguments max: a b c d x0 y0 steps file_name data_precision\n";
-    return 1;
-  }
+int main(int argc, char *argv[]) {
 
   try {
-    const double a = std::stod(argv[1]);
-    const double b = std::stod(argv[2]);
-    const double c = std::stod(argv[3]);
-    const double d = std::stod(argv[4]);
-    const double x0 = std::stod(argv[5]);
-    const double y0 = std::stod(argv[6]);
-    const int steps = std::stoi(argv[7]);
+    lv::Program_options options = lv::parse_arguments(argc, argv);
 
-    std::string output_file = "";
-    bool has_output_file = false;
-    int precision = 2;
+    lv::Simulation simulation{options.opt_a, options.opt_b,  options.opt_c,
+                              options.opt_d, options.opt_x0, options.opt_y0};
 
-    if (argc == 9) {
-    std::string arg8{argv[8]};
+    simulation.run(options.opt_steps);
 
-    if (is_integer(arg8)) {
-      precision = std::stoi(arg8);
+    if (options.opt_has_output_file) {
+      std::ofstream file(options.opt_output_file);
+      if (!file.is_open()) {
+        std::cerr << "Error: cannot open output file '"
+                  << options.opt_output_file << "'\n";
+        return 1;
+      }
+      simulation.print(file, options.opt_precision);
     } else {
-      output_file = arg8;
-      has_output_file = true;
-    }
-  }
-    
-    if (argc == 10) {
-      output_file = argv[8];
-      has_output_file = true;
-
-      std::string arg9{argv[9]};
-
-      if (is_double(output_file)) {
-      std::cerr << "Error: output file name can't be a number\n";
-      return 1;
-      }
-
-      if (!is_integer(arg9)) {
-      std::cerr << "Error: precision must be an integer\n";
-      return 1;
-      }
-
-      precision = std::stoi(arg9);
-    } 
-    
-    if (a <= 0.0 || b <= 0.0 || c <= 0.0 || d <= 0.0 || x0 <= 0.0 ||
-        y0 <= 0.0 || steps < 0 || precision <= 0) {
-      std::cerr << "Error: all parameters must be positive, except steps which "
-                   "must be non-negative\n";
-      return 1;
+      simulation.print(std::cout, options.opt_precision);
     }
 
-    lv::Simulation simulation{a, b, c, d, x0, y0};
-
-    simulation.run(steps);
-
-    if (has_output_file) {
-    std::ofstream file{output_file};
-
-    if (!file.is_open()) {
-      std::cerr << "Error: cannot open output file '" << output_file << "'\n";
-      return 1;
-    }
-
-    simulation.print(file, precision);
-  } else {
-    simulation.print(std::cout, precision);
-  }
-
-  } catch (const std::exception& error) {
-    std::cerr << "Error: invalid input\n";
-    std::cerr << argv[0] << " needs at least seven entry arguments written in figures: a b c d x0 y0 steps\n";
+  } catch (const std::exception &error) {
+    std::cerr << "Error: " << error.what() << '\n';
     return 1;
   }
 }
