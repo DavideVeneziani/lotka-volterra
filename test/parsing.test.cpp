@@ -50,3 +50,76 @@ TEST_CASE("Parsing fails if one required argument is not numeric") {
     CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
   }
 }
+
+TEST_CASE("Parsing fails if file name is a number") {
+  std::vector<std::string> arguments = {
+      "lotka_volterra", "1.0", "0.1", "1.5", "0.075",
+      "10.0",           "5.0", "100", "1.1", "3"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}
+
+TEST_CASE("Parsing reads precision as eighth argument") {
+  std::vector<std::string> arguments = {
+      "lotka_volterra", "1.0", "0.1", "1.5", "0.075",
+      "10.0",           "5.0", "100", "4"};
+
+  lv::Program_options options = parse(arguments);
+
+  CHECK(options.has_output_file == false);
+  CHECK(options.precision == 4);
+}
+
+TEST_CASE("Parsing reads output file as eighth argument") {
+  std::vector<std::string> arguments = {"lotka_volterra", "1.0",  "0.1", "1.5",
+                                        "0.075",          "10.0", "5.0", "100",
+                                        "output.txt"};
+
+  lv::Program_options options = parse(arguments);
+
+  CHECK(options.has_output_file == true);
+  CHECK(options.output_file == "output.txt");
+  CHECK(options.precision == 2);
+}
+
+TEST_CASE("Parsing reads output file and precision") {
+  std::vector<std::string> arguments = {"lotka_volterra", "1.0",  "0.1", "1.5",
+                                        "0.075",          "10.0", "5.0", "100",
+                                        "output.txt",     "6"};
+
+  lv::Program_options options = parse(arguments);
+
+  CHECK(options.has_output_file == true);
+  CHECK(options.output_file == "output.txt");
+  CHECK(options.precision == 6);
+}
+
+TEST_CASE("Parsing fails if precision is not an integer") {
+  std::vector<std::string> arguments = {"lotka_volterra", "1.0",  "0.1", "1.5",
+                                        "0.075",          "10.0", "5.0", "100",
+                                        "output.txt",     "6.5"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}
+
+TEST_CASE("Parsing fails if precision is negative") {
+  std::vector<std::string> arguments = {
+      "lotka_volterra", "1.0", "0.1", "1.5", "0.075",
+      "10.0",           "5.0", "100", "-3"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}
+
+TEST_CASE("Parsing fails if required arguments are missing") {
+  std::vector<std::string> arguments = {"lotka_volterra", "1.0", "0.1", "1.5"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}
+
+TEST_CASE("Parsing fails if there are too many arguments") {
+  std::vector<std::string> arguments = {"lotka_volterra", "1.0",  "0.1",  "1.5",
+                                        "0.075",          "10.0", "5.0",  "100",
+                                        "output.txt",     "6",    "extra"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}
