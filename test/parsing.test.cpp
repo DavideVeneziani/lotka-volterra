@@ -54,7 +54,7 @@ TEST_CASE("Parsing fails if one required argument is not numeric") {
 TEST_CASE("Parsing fails if file name is a number") {
   std::vector<std::string> arguments = {
       "lotka_volterra", "1.0", "0.1", "1.5", "0.075",
-      "10.0",           "5.0", "100", "1.1", "3"};
+      "10.0",           "5.0", "100", "1.1", "3.5"};
 
   CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
 }
