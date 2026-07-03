@@ -1,2 +1,0 @@
-lotka_volterra_test 1 0.0274286
----
