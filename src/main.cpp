@@ -36,8 +36,8 @@ int main(int argc, char *argv[]) {
       simulation.print_gnuplot_script(gnuplot_file, options.precision);
     }
     if (!options.has_output_file && !options.generate_gnuplot_script) {
-    simulation.print(std::cout, options.precision);
-    } 
+      simulation.print(std::cout, options.precision);
+    }
 
   } catch (const std::exception &error) {
     std::cerr << "Error: " << error.what() << '\n';

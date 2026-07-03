@@ -3,6 +3,7 @@
 
 #include <ostream>
 #include <vector>
+#include <cstddef>
 
 namespace lv {
 
@@ -26,6 +27,7 @@ private:
   double x_absolute() const;
   double y_absolute() const;
   double hamiltonian() const;
+  double h_percentage_error(std::size_t index) const;
   void save_state();
 
   static constexpr double dt_{0.001};

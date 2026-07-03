@@ -76,3 +76,91 @@ TEST_CASE("Simulation run with zero steps keeps only initial state")
   CHECK(simulation.states()[0].x == doctest::Approx(10.0));
   CHECK(simulation.states()[0].y == doctest::Approx(5.0));
 }
+
+TEST_CASE("Initial H percentage error is zero")
+{
+  lv::Simulation simulation{1.0, 0.1, 0.075, 1.5, 18.0, 8.0};
+
+  std::ostringstream output;
+  simulation.print(output, 8);
+
+  std::istringstream input{output.str()};
+
+  std::string header;
+  std::getline(input, header);
+
+  int step = 0;
+  double x = 0.;
+  double y = 0.;
+  double h = 0.;
+  double h_percentage_error = 0.;
+
+  input >> step >> x >> y >> h >> h_percentage_error;
+
+  CHECK(step == 0);
+  CHECK(h_percentage_error == doctest::Approx(0.0));
+}
+
+TEST_CASE("Print writes H before H percentage error")
+{
+  lv::Simulation simulation{1.0, 0.1, 0.075, 1.5, 18.0, 8.0};
+
+  const double expected_h = simulation.states()[0].h;
+
+  std::ostringstream output;
+  simulation.print(output, 8);
+
+  std::istringstream input{output.str()};
+
+  std::string header;
+  std::getline(input, header);
+
+  int step = 0;
+  double x = 0.;
+  double y = 0.;
+  double printed_h = 0.;
+  double h_percentage_error = 0.;
+
+  input >> step >> x >> y >> printed_h >> h_percentage_error;
+
+  CHECK(printed_h == doctest::Approx(expected_h));
+  CHECK(h_percentage_error == doctest::Approx(0.0));
+}
+
+TEST_CASE("H percentage error is computed correctly after one step")
+{
+  lv::Simulation simulation{1.0, 0.1, 0.075, 1.5, 18.0, 8.0};
+
+  simulation.run(1);
+
+  const auto& states = simulation.states();
+
+  const double h0 = states[0].h;
+  const double h1 = states[1].h;
+
+  const double expected_error = 100. * std::abs(h1 - h0) / std::abs(h0);
+
+  std::ostringstream output;
+  simulation.print(output, 8);
+
+  std::istringstream input{output.str()};
+
+  std::string header;
+  std::getline(input, header);
+
+  int step = 0;
+  double x = 0.;
+  double y = 0.;
+  double h = 0.;
+  double h_percentage_error = 0.;
+
+  // Riga dello step 0
+  input >> step >> x >> y >> h >> h_percentage_error;
+
+  // Riga dello step 1
+  input >> step >> x >> y >> h >> h_percentage_error;
+
+  CHECK(step == 1);
+  CHECK(h == doctest::Approx(h1));
+  CHECK(h_percentage_error == doctest::Approx(expected_error));
+}

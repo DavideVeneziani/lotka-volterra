@@ -32,8 +32,8 @@ Simulation::Simulation(double a, double b, double c, double d, double x0,
 const std::vector<State> &Simulation::states() const { return states_; };
 
 void Simulation::evolve() {
-  assert(x_rel_ > 0.);
-  assert(y_rel_ > 0.);
+  assert(x_rel_ > 0.0);
+  assert(y_rel_ > 0.0);
 
   const double x_old = x_rel_;
   const double y_old = y_rel_;
@@ -56,23 +56,24 @@ void Simulation::run(int steps) {
 
 void Simulation::print(std::ostream &output, int precision) const {
   output << std::setw(8) << "step" << std::setw(18) << "x" << std::setw(18)
-         << "y" << std::setw(18) << "h" << '\n';
+         << "y" << std::setw(18) << "h" << std::setw(18) << "h '%' error"
+         << '\n';
 
   output << std::fixed << std::setprecision(precision);
 
   for (std::size_t i = 0; i < states_.size(); ++i) {
     output << std::setw(8) << i << std::setw(18) << states_[i].x
            << std::setw(18) << states_[i].y << std::setw(18) << states_[i].h
-           << '\n';
+           << std::setw(17) << h_percentage_error(i) << '\n';
   }
 }
 
-void Simulation::print_gnuplot_script(std::ostream& os, int precision) const
-{
+void Simulation::print_gnuplot_script(std::ostream &os, int precision) const {
   os << "$data << EOD\n";
   print(os, precision);
   os << "EOD\n\n";
 
+  os << "set terminal qt size 1600,800 title 'Lotka Volterra Simulation'\n";
   os << "set grid\n";
   os << "set key outside\n\n";
 
@@ -89,10 +90,17 @@ void Simulation::print_gnuplot_script(std::ostream& os, int precision) const
   os << "plot $data every ::1 using 2:3 with lines title 'orbit'\n";
   os << "pause -1\n\n";
 
-  os << "set title 'First integral H'\n";
+  os << "set title 'First integral H and percentage error'\n";
   os << "set xlabel 'step'\n";
   os << "set ylabel 'H'\n";
-  os << "plot $data every ::1 using 1:4 with lines title 'H'\n";
+  os << "set y2label 'absolute percentage error (%)'\n";
+  os << "set ytics nomirror\n";
+  os << "set y2tics\n";
+  os << "set y2range [0:10]\n";
+  os << "plot $data every ::1 using 1:4 axes x1y1 with lines title 'H', \\\n";
+  os << "     $data every ::1 using 1:5 axes x1y2 with lines title "
+        "'H percentage error'\n";
+  os << "pause -1\n";
   os << "pause -1\n";
 }
 
@@ -116,6 +124,15 @@ double Simulation::hamiltonian() const {
   assert(y > 0.0);
 
   return -d_ * std::log(x) + c_ * x + b_ * y - a_ * std::log(y);
+}
+
+double Simulation::h_percentage_error(std::size_t index) const {
+  const double initial_h = states_[0].h;
+  if ((states_[index].h - initial_h) >= 0) {
+    return 100. * (states_[index].h - initial_h) / initial_h;
+  } else {
+    return -100. * (states_[index].h - initial_h) / initial_h;
+  }
 }
 
 void Simulation::save_state() {
