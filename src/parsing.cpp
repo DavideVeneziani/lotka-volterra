@@ -50,24 +50,24 @@ Program_options parse_arguments(int argc, char *argv[]) {
 
   Program_options options;
 
-  options.opt_a = std::stod(argv[1]);
-  options.opt_b = std::stod(argv[2]);
-  options.opt_c = std::stod(argv[3]);
-  options.opt_d = std::stod(argv[4]);
-  options.opt_x0 = std::stod(argv[5]);
-  options.opt_y0 = std::stod(argv[6]);
-  options.opt_steps = std::stoi(argv[7]);
+  options.a = std::stod(argv[1]);
+  options.b = std::stod(argv[2]);
+  options.c = std::stod(argv[3]);
+  options.d = std::stod(argv[4]);
+  options.x0 = std::stod(argv[5]);
+  options.y0 = std::stod(argv[6]);
+  options.steps = std::stoi(argv[7]);
 
   if (argc == 9) {
     std::string arg8{argv[8]};
 
     if (is_integer(arg8)) {
-      options.opt_precision = std::stoi(arg8);
+      options.precision = std::stoi(arg8);
     } else if (is_double(arg8)) {
       throw std::invalid_argument{"Precision must be an integer"};
     } else {
-      options.opt_output_file = arg8;
-      options.opt_has_output_file = true;
+      options.output_file = arg8;
+      options.has_output_file = true;
     }
   }
 
@@ -83,16 +83,16 @@ Program_options parse_arguments(int argc, char *argv[]) {
       throw std::invalid_argument{"Precision must be an integer"};
     }
 
-    options.opt_output_file = arg8;
-    options.opt_has_output_file = true;
-    options.opt_precision = std::stoi(arg9);
+    options.output_file = arg8;
+    options.has_output_file = true;
+    options.precision = std::stoi(arg9);
   }
 
-  if (options.opt_precision < 0) {
+  if (options.precision < 0) {
     throw std::invalid_argument{"Precision must be non-negative"};
   }
 
-  if (options.opt_steps < 0) {
+  if (options.steps < 0) {
     throw std::invalid_argument{"Steps must be non-negative"};
   }
 
