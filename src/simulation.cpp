@@ -67,6 +67,35 @@ void Simulation::print(std::ostream &output, int precision) const {
   }
 }
 
+void Simulation::print_gnuplot_script(std::ostream& os, int precision) const
+{
+  os << "$data << EOD\n";
+  print(os, precision);
+  os << "EOD\n\n";
+
+  os << "set grid\n";
+  os << "set key outside\n\n";
+
+  os << "set title 'Preys and predators'\n";
+  os << "set xlabel 'step'\n";
+  os << "set ylabel 'population'\n";
+  os << "plot $data every ::1 using 1:2 with lines title 'preys', \\\n";
+  os << "     $data every ::1 using 1:3 with lines title 'predators'\n";
+  os << "pause -1\n\n";
+
+  os << "set title 'Phase portrait'\n";
+  os << "set xlabel 'preys x'\n";
+  os << "set ylabel 'predators y'\n";
+  os << "plot $data every ::1 using 2:3 with lines title 'orbit'\n";
+  os << "pause -1\n\n";
+
+  os << "set title 'First integral H'\n";
+  os << "set xlabel 'step'\n";
+  os << "set ylabel 'H'\n";
+  os << "plot $data every ::1 using 1:4 with lines title 'H'\n";
+  os << "pause -1\n";
+}
+
 double Simulation::x_absolute() const {
   assert(c_ > 0.0);
 

@@ -23,9 +23,21 @@ int main(int argc, char *argv[]) {
         return 1;
       }
       simulation.print(file, options.precision);
-    } else {
-      simulation.print(std::cout, options.precision);
     }
+    if (options.generate_gnuplot_script) {
+      std::ofstream gnuplot_file(options.gnuplot_script_file);
+
+      if (!gnuplot_file.is_open()) {
+        std::cerr << "Error: cannot open gnuplot script file '"
+                  << options.gnuplot_script_file << "'\n";
+        return 1;
+      }
+
+      simulation.print_gnuplot_script(gnuplot_file, options.precision);
+    }
+    if (!options.has_output_file && !options.generate_gnuplot_script) {
+    simulation.print(std::cout, options.precision);
+    } 
 
   } catch (const std::exception &error) {
     std::cerr << "Error: " << error.what() << '\n';

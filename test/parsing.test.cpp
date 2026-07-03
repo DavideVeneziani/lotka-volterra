@@ -123,3 +123,46 @@ TEST_CASE("Parsing fails if there are too many arguments") {
 
   CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
 }
+
+TEST_CASE("Parsing reads gnuplot script file") {
+  std::vector<std::string> arguments{"lotka_volterra", "1",      "0.1", "1.5",
+                                     "0.075",          "10",     "5",   "100",
+                                     "--gnuplot",      "plot.gp"};
+
+  lv::Program_options options = parse(arguments);
+
+  CHECK(options.generate_gnuplot_script);
+  CHECK(options.gnuplot_script_file == "plot.gp");
+  CHECK(!options.has_output_file);
+  CHECK(options.precision == 2);
+}
+
+TEST_CASE("Parsing reads output file precision and gnuplot script file") {
+  std::vector<std::string> arguments{
+      "lotka_volterra", "1", "0.1",       "1.5",    "0.075", "10", "5", "100",
+      "output.txt",     "6", "--gnuplot", "plot.gp"};
+
+  lv::Program_options options = parse(arguments);
+
+  CHECK(options.has_output_file);
+  CHECK(options.output_file == "output.txt");
+  CHECK(options.precision == 6);
+  CHECK(options.generate_gnuplot_script);
+  CHECK(options.gnuplot_script_file == "plot.gp");
+}
+
+TEST_CASE("Parsing fails if gnuplot script file is missing") {
+  std::vector<std::string> arguments{"lotka_volterra", "1",  "0.1", "1.5",
+                                     "0.075",          "10", "5",   "100",
+                                     "--gnuplot"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}
+
+TEST_CASE("Parsing fails if gnuplot script file name is a number") {
+  std::vector<std::string> arguments{"lotka_volterra", "1",  "0.1", "1.5",
+                                     "0.075",          "10", "5",   "100",
+                                     "--gnuplot",      "6"};
+
+  CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
+}

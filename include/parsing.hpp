@@ -16,6 +16,10 @@ struct Program_options {
 
   std::string output_file = "";
   bool has_output_file = false;
+
+  std::string gnuplot_script_file = "";
+  bool generate_gnuplot_script = false;
+
   int precision = 2;
 };
 
