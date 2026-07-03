@@ -56,3 +56,23 @@ TEST_CASE("Simulation print uses selected precision") {
   CHECK(printed_text1.find("10.00") != std::string::npos);
   CHECK(printed_text2.find("10.000000") != std::string::npos);
 }
+
+TEST_CASE("Simulation run stores the correct number of states")
+{
+  lv::Simulation simulation{1.0, 0.1, 1.5, 0.075, 10.0, 5.0};
+
+  simulation.run(10);
+
+  CHECK(simulation.states().size() == 11);
+}
+
+TEST_CASE("Simulation run with zero steps keeps only initial state")
+{
+  lv::Simulation simulation{1.0, 0.1, 1.5, 0.075, 10.0, 5.0};
+
+  simulation.run(0);
+
+  CHECK(simulation.states().size() == 1);
+  CHECK(simulation.states()[0].x == doctest::Approx(10.0));
+  CHECK(simulation.states()[0].y == doctest::Approx(5.0));
+}
