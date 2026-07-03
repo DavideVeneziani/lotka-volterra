@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/lotka_volterra.dir/src/main.cpp.o"
   "CMakeFiles/lotka_volterra.dir/src/main.cpp.o.d"
+  "CMakeFiles/lotka_volterra.dir/src/parsing.cpp.o"
+  "CMakeFiles/lotka_volterra.dir/src/parsing.cpp.o.d"
   "CMakeFiles/lotka_volterra.dir/src/simulation.cpp.o"
   "CMakeFiles/lotka_volterra.dir/src/simulation.cpp.o.d"
   "lotka_volterra"

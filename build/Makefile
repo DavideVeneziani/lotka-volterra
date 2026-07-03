@@ -540,6 +540,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/parsing.o: src/parsing.cpp.o
+.PHONY : src/parsing.o
+
+# target to build an object file
+src/parsing.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/parsing.cpp.o
+.PHONY : src/parsing.cpp.o
+
+src/parsing.i: src/parsing.cpp.i
+.PHONY : src/parsing.i
+
+# target to preprocess a source file
+src/parsing.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/parsing.cpp.i
+.PHONY : src/parsing.cpp.i
+
+src/parsing.s: src/parsing.cpp.s
+.PHONY : src/parsing.s
+
+# target to generate assembly for a file
+src/parsing.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lotka_volterra.dir/build.make CMakeFiles/lotka_volterra.dir/src/parsing.cpp.s
+.PHONY : src/parsing.cpp.s
+
 src/simulation.o: src/simulation.cpp.o
 .PHONY : src/simulation.o
 
@@ -633,6 +657,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/parsing.o"
+	@echo "... src/parsing.i"
+	@echo "... src/parsing.s"
 	@echo "... src/simulation.o"
 	@echo "... src/simulation.i"
 	@echo "... src/simulation.s"

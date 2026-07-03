@@ -40,6 +40,7 @@ find_package(SFML 2.6 COMPONENTS graphics REQUIRED)
 add_executable(lotka_volterra
   src/main.cpp
   src/simulation.cpp
+  src/parsing.cpp
 )
 # nel caso si usi SFML. analogamente per eventuali altre librerie
 target_include_directories(lotka_volterra PRIVATE include)
