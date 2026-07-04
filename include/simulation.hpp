@@ -17,7 +17,7 @@ class Simulation {
 public:
   Simulation(double a, double b, double c, double d, double x0, double y0);
 
-  const std::vector<State> &states() const;
+  const std::vector<State>& states() const;
   void evolve();
   void run(int steps);
   void print(std::ostream &output, int precision) const;

@@ -29,7 +29,7 @@ Simulation::Simulation(double a, double b, double c, double d, double x0,
   save_state();
 }
 
-const std::vector<State> &Simulation::states() const { return states_; };
+const std::vector<State>& Simulation::states() const { return states_; };
 
 void Simulation::evolve() {
   assert(x_rel_ > 0.0);
