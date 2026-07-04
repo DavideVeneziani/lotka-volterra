@@ -1,12 +1,13 @@
 #include "parsing.hpp"
 
+#include <cassert>
 #include <stdexcept>
 #include <string>
+#include <iostream>
 
 namespace lv {
 
 namespace {
-
 bool is_integer(const std::string &text) {
   try {
     std::size_t index = 0;
@@ -30,40 +31,11 @@ bool is_double(const std::string &text) {
 } // namespace
 
 Program_options parse_arguments(int argc, char *argv[]) {
-
   Program_options options;
 
-  int effective_argc = argc;
-
-  for (int i = 1; i < argc; ++i) {
-    if (std::string{argv[i]} == "--gnuplot") {
-      if (i != argc - 2) {
-        throw std::invalid_argument{"'--gnuplot' must be followed by a destination"
-                                    " file and nothing else"};
-      }
-
-      std::string script_file{argv[i + 1]};
-      if (is_double(script_file)) {
-        throw std::invalid_argument{
-            "gnuplot script file name cannot be a number"};
-      }
-
-      options.generate_gnuplot_script = true;
-      options.gnuplot_script_file = script_file;
-      effective_argc = i;
-    }
-  }
-
-  if (effective_argc < 8) {
-    throw std::invalid_argument{
-        std::string{argv[0]} +
-        " needs at least seven entry arguments: a b c d x0 y0 steps\n"};
-  }
-
-  if (effective_argc > 10) {
+  if (argc < 8) {
     throw std::invalid_argument{std::string{argv[0]} +
-                                " handles nine arguments max: a b c d x0 y0 "
-                                "steps file_name data_precision\n"};
+                                " expects 7 arguments: a b c d x0 y0 steps\n"};
   }
 
   if (!is_double(argv[1]) || !is_double(argv[2]) || !is_double(argv[3]) ||
@@ -81,42 +53,85 @@ Program_options parse_arguments(int argc, char *argv[]) {
   options.y0 = std::stod(argv[6]);
   options.steps = std::stoi(argv[7]);
 
-  if (effective_argc == 9) {
-    std::string arg8{argv[8]};
-
-    if (is_integer(arg8)) {
-      options.precision = std::stoi(arg8);
-    } else if (is_double(arg8)) {
-      throw std::invalid_argument{"Precision must be an integer"};
-    } else {
-      options.output_file = arg8;
-      options.has_output_file = true;
-    }
-  }
-
-  if (effective_argc == 10) {
-    std::string arg8{argv[8]};
-    std::string arg9{argv[9]};
-
-    if (is_double(arg8)) {
-      throw std::invalid_argument{"Output file name cannot be a number"};
-    }
-
-    if (!is_integer(arg9)) {
-      throw std::invalid_argument{"Precision must be an integer"};
-    }
-
-    options.output_file = arg8;
-    options.has_output_file = true;
-    options.precision = std::stoi(arg9);
-  }
-
-  if (options.precision < 0) {
-    throw std::invalid_argument{"Precision must be non-negative"};
-  }
-
   if (options.steps < 0) {
     throw std::invalid_argument{"Steps must be non-negative"};
+  }
+
+  for (int i = 8; i < argc;) {
+    const std::string option{argv[i]};
+
+    if (option == "--print_file") { throw std::invalid_argument{"Did you mean --file_print?"}; }
+
+    if (option == "--file_print") {
+
+      if (i + 1 >= argc) {
+        throw std::invalid_argument{
+            "--file_print: expecting  destination file"};
+      }
+      std::string file_name{argv[i + 1]};
+      
+      if (file_name == "--gnuplot" || file_name == "--file_print") {
+        throw std::invalid_argument{
+            "--file_print: expecting  destination file"};
+      }
+
+      if (is_double(file_name)) {
+        throw std::invalid_argument{"file name cannot be a number"};
+      }
+
+      options.has_output_file = true;
+      options.output_file = file_name;
+      options.precision = 2;
+
+      i += 2;
+
+      if (i < argc && is_integer(argv[i])) {
+        options.precision = std::stoi(argv[i]);
+
+        if (options.precision < 0) {
+          throw std::invalid_argument{"Precision must be non-negative"};
+        }
+
+        ++i;
+      }
+
+    } else if (option == "--gnuplot") {
+      if (i + 1 >= argc) {
+        throw std::invalid_argument{
+            "'--gnuplot': expecting  destination file"};
+      }
+
+      std::string script_file{argv[i + 1]};
+
+      if (script_file == "--gnuplot" || script_file == "--file_print") {
+        throw std::invalid_argument{
+            "'--gnuplot' must be followed by a destination file"};
+      }
+
+      if (is_double(script_file)) {
+        throw std::invalid_argument{
+            "gnuplot script file name cannot be a number"};
+      }
+
+      options.generate_gnuplot_script = true;
+      options.gnuplot_script_file = script_file;
+      options.precision_gnu = 2;
+
+      i += 2;
+
+      if (i < argc && is_integer(argv[i])) {
+        options.precision_gnu = std::stoi(argv[i]);
+
+        if (options.precision_gnu < 0) {
+          throw std::invalid_argument{"Precision must be non-negative"};
+        }
+
+        ++i;
+      }
+
+    } else {
+      throw std::invalid_argument{"unknown option: " + option};
+    }
   }
 
   return options;

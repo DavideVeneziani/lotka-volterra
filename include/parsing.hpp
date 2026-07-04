@@ -21,6 +21,7 @@ struct Program_options {
   bool generate_gnuplot_script = false;
 
   int precision = 2;
+  int precision_gnu = 2;
 };
 
 Program_options parse_arguments(int argc, char *argv[]);
