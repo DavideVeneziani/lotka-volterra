@@ -68,7 +68,7 @@ void Simulation::print(std::ostream &output, int precision) const {
   }
 }
 
-void Simulation::print_gnuplot_script(std::ostream &os, int precision) const {
+void Simulation::print_gnuplot_script(std::ostream& os, int precision) const {
   os << "$data << EOD\n";
   print(os, precision);
   os << "EOD\n\n";

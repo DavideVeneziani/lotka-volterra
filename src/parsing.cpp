@@ -8,7 +8,7 @@
 namespace lv {
 
 namespace {
-bool is_integer(const std::string &text) {
+bool is_integer(const std::string& text) {
   try {
     std::size_t index = 0;
     std::stoi(text, &index);
@@ -18,7 +18,7 @@ bool is_integer(const std::string &text) {
   }
 }
 
-bool is_double(const std::string &text) {
+bool is_double(const std::string& text) {
   try {
     std::size_t index = 0;
     std::stod(text, &index);
