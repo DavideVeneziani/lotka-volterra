@@ -8,10 +8,10 @@
 
 namespace {
 
-lv::Program_options parse(std::vector<std::string> &arguments) {
-  std::vector<char *> argv;
+lv::Program_options parse(std::vector<std::string>& arguments) {
+  std::vector<char*> argv;
 
-  for (std::string &argument : arguments) {
+  for (std::string& argument : arguments) {
     argv.push_back(argument.data());
   }
 

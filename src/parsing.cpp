@@ -38,12 +38,11 @@ Program_options parse_arguments(int argc, char *argv[]) {
   for (int i = 1; i < argc; ++i) {
     if (std::string{argv[i]} == "--gnuplot") {
       if (i != argc - 2) {
-        throw std::invalid_argument{"--gnuplot must be followed by a script "
-                                    "file and placed at the end"};
+        throw std::invalid_argument{"'--gnuplot' must be followed by a destination"
+                                    " file and nothing else"};
       }
 
       std::string script_file{argv[i + 1]};
-
       if (is_double(script_file)) {
         throw std::invalid_argument{
             "gnuplot script file name cannot be a number"};

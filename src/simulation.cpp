@@ -54,7 +54,7 @@ void Simulation::run(int steps) {
   }
 };
 
-void Simulation::print(std::ostream &output, int precision) const {
+void Simulation::print(std::ostream& output, int precision) const {
   output << std::setw(8) << "step" << std::setw(18) << "x" << std::setw(18)
          << "y" << std::setw(18) << "h" << std::setw(18) << "h '%' error"
          << '\n';
