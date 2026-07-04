@@ -102,20 +102,11 @@ TEST_CASE("Parsing reads file name and precision after file name with "
 
 TEST_CASE("Parsing reads file name and precision after file name with "
           "--file_print and --gnuplot option") {
-  std::vector<std::string> arguments = {"lotka_volterra",
-                                        "1.0",
-                                        "0.1",
-                                        "1.5",
-                                        "0.075",
-                                        "10.0",
-                                        "5.0",
-                                        "100",
-                                        "--file_print",
-                                        "file_name",
-                                        "6",
-                                        "--gnuplot",
-                                        "gnu_file",
-                                        "4"};
+  std::vector<std::string> arguments = {
+      "lotka_volterra", "1.0",       "0.1", "1.5",
+      "0.075",          "10.0",      "5.0", "100",
+      "--file_print",   "file_name", "6",   "--gnuplot",
+      "gnu_file",       "4"};
 
   lv::Program_options options = parse(arguments);
 
@@ -130,9 +121,10 @@ TEST_CASE("Parsing reads file name and precision after file name with "
 TEST_CASE("Parsing reads file name and precision after file name with "
           "--gnuplot and --file_print option") {
   std::vector<std::string> arguments = {
-      "lotka_volterra", "1.0",       "0.1", "1.5",       "0.075",
-      "10.0",           "5.0",       "100", "--gnuplot", "gnu_file",
-      "4", "--file_print", "file_name", "6",
+      "lotka_volterra", "1.0",      "0.1", "1.5",
+      "0.075",          "10.0",     "5.0", "100",
+      "--gnuplot",      "gnu_file", "4",   "--file_print",
+      "file_name",      "6",
   };
 
   lv::Program_options options = parse(arguments);
@@ -171,8 +163,8 @@ TEST_CASE("Parsing fails if there are too many arguments") {
   std::vector<std::string> arguments = {
       "lotka_volterra", "1.0",       "0.1",  "1.5",
       "0.075",          "10.0",      "5.0",  "100",
-      "--file_print",   "file_name", "6",      "--gnuplot",
-      "gnu_file",       "4",           "extra"};
+      "--file_print",   "file_name", "6",    "--gnuplot",
+      "gnu_file",       "4",         "extra"};
 
   CHECK_THROWS_AS(parse(arguments), std::invalid_argument);
 }

@@ -57,8 +57,7 @@ TEST_CASE("Simulation print uses selected precision") {
   CHECK(printed_text2.find("10.000000") != std::string::npos);
 }
 
-TEST_CASE("Simulation run stores the correct number of states")
-{
+TEST_CASE("Simulation run stores the correct number of states") {
   lv::Simulation simulation{1.0, 0.1, 1.5, 0.075, 10.0, 5.0};
 
   simulation.run(10);
@@ -66,8 +65,7 @@ TEST_CASE("Simulation run stores the correct number of states")
   CHECK(simulation.states().size() == 11);
 }
 
-TEST_CASE("Simulation run with zero steps keeps only initial state")
-{
+TEST_CASE("Simulation run with zero steps keeps only initial state") {
   lv::Simulation simulation{1.0, 0.1, 1.5, 0.075, 10.0, 5.0};
 
   simulation.run(0);
@@ -77,8 +75,7 @@ TEST_CASE("Simulation run with zero steps keeps only initial state")
   CHECK(simulation.states()[0].y == doctest::Approx(5.0));
 }
 
-TEST_CASE("Initial H percentage error is zero")
-{
+TEST_CASE("Initial H percentage error is zero") {
   lv::Simulation simulation{1.0, 0.1, 0.075, 1.5, 18.0, 8.0};
 
   std::stringstream stream;
@@ -99,8 +96,7 @@ TEST_CASE("Initial H percentage error is zero")
   CHECK(h_percentage_error == doctest::Approx(0.0));
 }
 
-TEST_CASE("Print writes H before H percentage error")
-{
+TEST_CASE("Print writes H before H percentage error") {
   lv::Simulation simulation{1.0, 0.1, 0.075, 1.5, 18.0, 8.0};
 
   const auto states = simulation.states();
@@ -123,13 +119,13 @@ TEST_CASE("Print writes H before H percentage error")
   CHECK(h_percentage_error == doctest::Approx(0.0));
 }
 
-TEST_CASE("H percentage error is computed and printed correctly after one step")
-{
+TEST_CASE(
+    "H percentage error is computed and printed correctly after one step") {
   lv::Simulation simulation{1.0, 0.1, 0.075, 1.5, 18.0, 8.0};
 
   simulation.run(1);
 
-  const auto& states = simulation.states();
+  const auto &states = simulation.states();
 
   const double h0 = states[0].h;
   const double h1 = states[1].h;
@@ -147,7 +143,6 @@ TEST_CASE("H percentage error is computed and printed correctly after one step")
   double y = 0.;
   double h = 0.;
   double h_percentage_error = 0.;
-
 
   stream >> step >> x >> y >> h >> h_percentage_error;
 

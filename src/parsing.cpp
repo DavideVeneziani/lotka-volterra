@@ -1,9 +1,9 @@
 #include "parsing.hpp"
 
 #include <cassert>
+#include <iostream>
 #include <stdexcept>
 #include <string>
-#include <iostream>
 
 namespace lv {
 
@@ -60,7 +60,9 @@ Program_options parse_arguments(int argc, char *argv[]) {
   for (int i = 8; i < argc;) {
     const std::string option{argv[i]};
 
-    if (option == "--print_file") { throw std::invalid_argument{"Did you mean --file_print?"}; }
+    if (option == "--print_file") {
+      throw std::invalid_argument{"Did you mean --file_print?"};
+    }
 
     if (option == "--file_print") {
 
@@ -69,7 +71,7 @@ Program_options parse_arguments(int argc, char *argv[]) {
             "--file_print: expecting  destination file"};
       }
       std::string file_name{argv[i + 1]};
-      
+
       if (file_name == "--gnuplot" || file_name == "--file_print") {
         throw std::invalid_argument{
             "--file_print: expecting  destination file"};
@@ -97,8 +99,7 @@ Program_options parse_arguments(int argc, char *argv[]) {
 
     } else if (option == "--gnuplot") {
       if (i + 1 >= argc) {
-        throw std::invalid_argument{
-            "'--gnuplot': expecting  destination file"};
+        throw std::invalid_argument{"'--gnuplot': expecting  destination file"};
       }
 
       std::string script_file{argv[i + 1]};

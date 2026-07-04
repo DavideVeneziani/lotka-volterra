@@ -1,9 +1,9 @@
 #ifndef LV_SIMULATION_HPP
 #define LV_SIMULATION_HPP
 
+#include <cstddef>
 #include <ostream>
 #include <vector>
-#include <cstddef>
 
 namespace lv {
 
@@ -21,7 +21,7 @@ public:
   void evolve();
   void run(int steps);
   void print(std::ostream &output, int precision) const;
-  void print_gnuplot_script(std::ostream& os, int precision) const;
+  void print_gnuplot_script(std::ostream &os, int precision) const;
 
 private:
   double x_absolute() const;
