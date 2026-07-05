@@ -6,7 +6,7 @@
 #include <fstream>
 #include <iostream>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
   try {
     lv::Program_options options = lv::parse_arguments(argc, argv);
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
       simulation.print(std::cout, options.precision);
     }
 
-  } catch (const std::exception &error) {
+  } catch (const std::exception& error) {
     std::cerr << "Error: " << error.what() << '\n';
     return 1;
   }

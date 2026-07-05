@@ -139,7 +139,7 @@ TEST_CASE(
 
   simulation.run(1);
 
-  const auto &states = simulation.states();
+  const auto& states = simulation.states();
 
   const double h0 = states[0].h;
   const double h1 = states[1].h;

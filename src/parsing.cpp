@@ -7,29 +7,29 @@
 namespace lv {
 
 namespace {
-bool is_integer(const std::string &text) {
+bool is_integer(const std::string& text) {
   try {
     std::size_t index = 0;
     std::stoi(text, &index);
     return index == text.size();
-  } catch (const std::exception &) {
+  } catch (const std::exception&) {
     return false;
   }
 }
 
-bool is_double(const std::string &text) {
+bool is_double(const std::string& text) {
   try {
     std::size_t index = 0;
     std::stod(text, &index);
     return index == text.size();
-  } catch (const std::exception &) {
+  } catch (const std::exception&) {
     return false;
   }
 }
 
 } // namespace
 
-Program_options parse_arguments(int argc, char *argv[]) {
+Program_options parse_arguments(int argc, char* argv[]) {
   assert(argc >= 1);
   assert(argv != nullptr);
   assert(argv[0] != nullptr);

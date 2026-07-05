@@ -24,7 +24,7 @@ struct Program_options {
   int precision_gnu = 2;
 };
 
-Program_options parse_arguments(int argc, char *argv[]);
+Program_options parse_arguments(int argc, char* argv[]);
 
 } // namespace lv
 

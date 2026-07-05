@@ -29,7 +29,7 @@ Simulation::Simulation(double a, double b, double c, double d, double x0,
   save_state();
 }
 
-const std::vector<State> &Simulation::states() const { return states_; }
+const std::vector<State>& Simulation::states() const { return states_; }
 
 void Simulation::evolve() {
   assert(x_rel_ > 0.0);
@@ -59,7 +59,7 @@ void Simulation::run(int steps) {
   }
 }
 
-void Simulation::print(std::ostream &output, int precision) const {
+void Simulation::print(std::ostream& output, int precision) const {
   assert(precision >= 0);
   assert(!states_.empty());
 
@@ -76,7 +76,7 @@ void Simulation::print(std::ostream &output, int precision) const {
   }
 }
 
-void Simulation::print_gnuplot_script(std::ostream &os, int precision) const {
+void Simulation::print_gnuplot_script(std::ostream& os, int precision) const {
   os << "$data << EOD\n";
   print(os, precision);
   os << "EOD\n\n";
