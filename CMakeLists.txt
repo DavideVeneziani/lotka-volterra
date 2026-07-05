@@ -32,9 +32,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 endif()
 string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG " -fsanitize=address,undefined")
 
-# se usato, richiedi il componente graphics della libreria SFML (versione 2.6 in Ubuntu 24.04)
-find_package(SFML 2.6 COMPONENTS graphics REQUIRED)
-
 # dichiara un eseguibile chiamato "progetto", prodotto a partire dai file sorgente indicati
 # sostituire "progetto" con il nome del proprio eseguibile e i file sorgente con i propri (con nomi sensati!)
 add_executable(lotka_volterra
@@ -44,8 +41,6 @@ add_executable(lotka_volterra
 )
 # nel caso si usi SFML. analogamente per eventuali altre librerie
 target_include_directories(lotka_volterra PRIVATE include)
-
-target_link_libraries(lotka_volterra PRIVATE sfml-graphics)
 
 # aggiungere eventuali altri eseguibili
 
@@ -62,7 +57,6 @@ if (BUILD_TESTING)
   )
   target_include_directories(lotka_volterra_test PRIVATE include)
 
-  target_link_libraries(lotka_volterra_test PRIVATE sfml-graphics)
   # aggiungi l'eseguibile progetto.t alla lista dei test
   add_test(NAME lotka_volterra_test COMMAND lotka_volterra_test)
 
