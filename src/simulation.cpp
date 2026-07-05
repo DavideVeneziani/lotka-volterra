@@ -2,8 +2,8 @@
 
 #include <cassert>
 #include <cmath>
-#include <fstream>
 #include <iomanip>
+#include <limits>
 #include <ostream>
 #include <stdexcept>
 
@@ -12,8 +12,8 @@ namespace lv {
 Simulation::Simulation(double a, double b, double c, double d, double x0,
                        double y0)
     : a_{a}, b_{b}, c_{c}, d_{d}, x_rel_{}, y_rel_{} {
-  if (a <= 0.0 || b <= 0.0 || c <= 0.0 || d <= 0.0) {
-    throw std::invalid_argument{"Parameters must be positive"};
+  if (a < 0.0 || b < 0.0 || c < 0.0 || d < 0.0) {
+    throw std::invalid_argument{"Parameters must be non negative"};
   }
 
   if (x0 <= 0.0 || y0 <= 0.0) {
@@ -29,7 +29,7 @@ Simulation::Simulation(double a, double b, double c, double d, double x0,
   save_state();
 }
 
-const std::vector<State>& Simulation::states() const { return states_; };
+const std::vector<State> &Simulation::states() const { return states_; }
 
 void Simulation::evolve() {
   assert(x_rel_ > 0.0);
@@ -41,20 +41,28 @@ void Simulation::evolve() {
   y_rel_ = y_old + d_ * (x_old - 1.0) * y_old * dt_;
   x_rel_ = x_old + a_ * (1.0 - y_rel_) * x_old * dt_;
 
+  assert(x_rel_ > 0.0);
+  assert(y_rel_ > 0.0);
+
   save_state();
 }
 
 void Simulation::run(int steps) {
   if (steps < 0) {
-    throw std::invalid_argument{"Il numero di passi deve essere positivo"};
+    throw std::invalid_argument{"steps must be non negative"};
   }
+
+  assert(steps >= 0);
 
   for (int i = 0; i < steps; ++i) {
     Simulation::evolve();
   }
-};
+}
 
 void Simulation::print(std::ostream &output, int precision) const {
+  assert(precision >= 0);
+  assert(!states_.empty());
+
   output << std::setw(8) << "step" << std::setw(18) << "x" << std::setw(18)
          << "y" << std::setw(18) << "h" << std::setw(18) << "h '%' error"
          << '\n';
@@ -68,7 +76,7 @@ void Simulation::print(std::ostream &output, int precision) const {
   }
 }
 
-void Simulation::print_gnuplot_script(std::ostream& os, int precision) const {
+void Simulation::print_gnuplot_script(std::ostream &os, int precision) const {
   os << "$data << EOD\n";
   print(os, precision);
   os << "EOD\n\n";
@@ -105,13 +113,15 @@ void Simulation::print_gnuplot_script(std::ostream& os, int precision) const {
 }
 
 double Simulation::x_absolute() const {
-  assert(c_ > 0.0);
+  assert(c_ >= 0.0);
+  assert(x_rel_ > 0.0);
 
   return x_rel_ * d_ / c_;
 }
 
 double Simulation::y_absolute() const {
-  assert(b_ > 0.0);
+  assert(b_ >= 0.0);
+  assert(y_rel_ > 0.0);
 
   return y_rel_ * a_ / b_;
 }
@@ -127,16 +137,31 @@ double Simulation::hamiltonian() const {
 }
 
 double Simulation::h_percentage_error(std::size_t index) const {
+  assert(!states_.empty());
+  assert(index < states_.size());
+
   const double initial_h = states_[0].h;
-  if ((states_[index].h - initial_h) >= 0) {
-    return 100. * (states_[index].h - initial_h) / initial_h;
+
+  if (initial_h == 0.0) {
+    if (states_[index].h - initial_h == 0) {
+      return 0;
+    } else {
+      return std::numeric_limits<double>::quiet_NaN();
+    }
   } else {
-    return -100. * (states_[index].h - initial_h) / initial_h;
+    return 100.0 * std::abs(states_[index].h - initial_h) / std::abs(initial_h);
   }
 }
 
 void Simulation::save_state() {
-  states_.push_back(State{x_absolute(), y_absolute(), hamiltonian()});
+  const double x = x_absolute();
+  const double y = y_absolute();
+  const double h = hamiltonian();
+
+  assert(x > 0.0);
+  assert(y > 0.0);
+
+  states_.push_back(State{x, y, h});
 }
 
 } // namespace lv

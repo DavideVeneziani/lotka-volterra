@@ -1,14 +1,13 @@
 #include "parsing.hpp"
 
 #include <cassert>
-#include <iostream>
 #include <stdexcept>
 #include <string>
 
 namespace lv {
 
 namespace {
-bool is_integer(const std::string& text) {
+bool is_integer(const std::string &text) {
   try {
     std::size_t index = 0;
     std::stoi(text, &index);
@@ -18,7 +17,7 @@ bool is_integer(const std::string& text) {
   }
 }
 
-bool is_double(const std::string& text) {
+bool is_double(const std::string &text) {
   try {
     std::size_t index = 0;
     std::stod(text, &index);
@@ -31,6 +30,10 @@ bool is_double(const std::string& text) {
 } // namespace
 
 Program_options parse_arguments(int argc, char *argv[]) {
+  assert(argc >= 1);
+  assert(argv != nullptr);
+  assert(argv[0] != nullptr);
+
   Program_options options;
 
   if (argc < 8) {
@@ -133,6 +136,26 @@ Program_options parse_arguments(int argc, char *argv[]) {
     } else {
       throw std::invalid_argument{"unknown option: " + option};
     }
+  }
+
+  assert(options.steps >= 0);
+
+  assert(options.a >= 0.0);
+  assert(options.b >= 0.0);
+  assert(options.c >= 0.0);
+  assert(options.d >= 0.0);
+  assert(options.x0 > 0.0);
+  assert(options.y0 > 0.0);
+
+  assert(options.precision >= 0);
+  assert(options.precision_gnu >= 0);
+
+  if (options.has_output_file) {
+    assert(!options.output_file.empty());
+  }
+
+  if (options.generate_gnuplot_script) {
+    assert(!options.gnuplot_script_file.empty());
   }
 
   return options;

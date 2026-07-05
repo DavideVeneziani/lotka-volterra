@@ -8,16 +8,16 @@
 namespace lv {
 
 struct State {
-  double x;
-  double y;
-  double h;
+  double x = 0.0;
+  double y = 0.0;
+  double h = 0.0;
 };
 
 class Simulation {
 public:
   Simulation(double a, double b, double c, double d, double x0, double y0);
 
-  const std::vector<State>& states() const;
+  const std::vector<State> &states() const;
   void evolve();
   void run(int steps);
   void print(std::ostream &output, int precision) const;

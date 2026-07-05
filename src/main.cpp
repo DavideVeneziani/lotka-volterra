@@ -1,6 +1,7 @@
 #include "parsing.hpp"
 #include "simulation.hpp"
 
+#include <cassert>
 #include <exception>
 #include <fstream>
 #include <iostream>
@@ -12,8 +13,6 @@ int main(int argc, char *argv[]) {
 
     lv::Simulation simulation{options.a, options.b,  options.c,
                               options.d, options.x0, options.y0};
-
-    simulation.run(options.steps);
 
     if (options.has_output_file) {
       std::ofstream file(options.output_file);
@@ -35,6 +34,9 @@ int main(int argc, char *argv[]) {
 
       simulation.print_gnuplot_script(gnuplot_file, options.precision);
     }
+
+    simulation.run(options.steps);
+
     if (!options.has_output_file && !options.generate_gnuplot_script) {
       simulation.print(std::cout, options.precision);
     }

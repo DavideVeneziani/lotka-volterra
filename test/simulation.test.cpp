@@ -16,17 +16,31 @@ TEST_CASE("Simulation saves the initial state") {
   CHECK(state.y == doctest::Approx(1.0));
 }
 
-TEST_CASE("Simulation rejects non-positive parameters") {
-  CHECK_THROWS_AS(lv::Simulation(0.0, 2.0, 3.0, 4.0, 1.0, 1.0),
+TEST_CASE("Simulation rejects negative a, b, c, d parameters") {
+  CHECK_THROWS_AS(lv::Simulation(-1.0, 2.0, 3.0, 4.0, 1.0, 1.0),
                   std::invalid_argument);
 
-  CHECK_THROWS_AS(lv::Simulation(1.0, 0.0, 3.0, 4.0, 1.0, 1.0),
+  CHECK_THROWS_AS(lv::Simulation(1.0, -1.0, 3.0, 4.0, 1.0, 1.0),
                   std::invalid_argument);
 
-  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, 0.0, 4.0, 1.0, 1.0),
+  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, -1.0, 4.0, 1.0, 1.0),
                   std::invalid_argument);
 
-  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, 3.0, 0.0, 1.0, 1.0),
+  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, 3.0, -1.0, 1.0, 1.0),
+                  std::invalid_argument);
+}
+
+TEST_CASE("Simulation rejects non-positive x0 and y0 parameters") {
+  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, 3.0, 4.0, 0.0, 1.0),
+                  std::invalid_argument);
+
+  CHECK_THROWS_AS(lv::Simulation(1.0, 1.0, 3.0, 4.0, -1.0, 1.0),
+                  std::invalid_argument);
+
+  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, 1.0, 4.0, 1.0, 0.0),
+                  std::invalid_argument);
+
+  CHECK_THROWS_AS(lv::Simulation(1.0, 2.0, 3.0, 1.0, 1.0, -1.0),
                   std::invalid_argument);
 }
 
